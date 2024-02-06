@@ -1,0 +1,17 @@
+.cover-container {
+    max-width: 42em;
+    height: 100vh;
+    color: white;
+}
+
+.title-site {
+    padding: 0px;
+}
+
+.route-option {
+    cursor: pointer;
+}
+
+.route-option:hover {
+    background-color: #222222;
+}
