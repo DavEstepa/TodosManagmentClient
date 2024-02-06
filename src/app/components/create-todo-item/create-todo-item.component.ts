@@ -5,16 +5,20 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {ReactiveFormsModule, FormBuilder, FormGroup} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import { ToastProviderService } from '../../shared/services/toast-provider.service';
+import { CreateTodoItemService } from './services/create-todo-item.service';
+import { catchError, first, tap } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-todo-item',
   standalone: true,
+  providers: [HttpClient, CreateTodoItemService],
   imports: [
     CommonModule,
     MatInputModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   template: `
 <div class="container" style="">
@@ -49,8 +53,7 @@ import { ToastProviderService } from '../../shared/services/toast-provider.servi
 </div>
   
   `,
-  styleUrl: './create-todo-item.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrl: './create-todo-item.component.css'
 })
 export class CreateTodoItemComponent {
   form?: FormGroup;
@@ -61,13 +64,21 @@ export class CreateTodoItemComponent {
   }
 
   constructor(private formBuilder: FormBuilder,
-    private toastService: ToastProviderService){
+    private toastService: ToastProviderService,
+    private service: CreateTodoItemService){
     this.form = this.formBuilder.group(this.initialState);
   }
 
   createTODO(event: any){
     event.preventDefault();
     console.log(this.form?.value);
-    this.toastService.sendMessage({ severity: 'success', summary: 'Registro Creado', detail: 'La tarea llamada ...' });
+    if(this.form){
+        this.service.createTodo(this.form.value).pipe(first()).subscribe(
+          (r)=>{
+            if(r)this.toastService.sendMessage({ severity: 'success', summary: 'Actividad Creada', detail: 'Información...' });
+            else this.toastService.sendMessage({ severity: 'error', summary: 'Error', detail: 'Message Content' })
+          }
+        );
+    };
   }
 }

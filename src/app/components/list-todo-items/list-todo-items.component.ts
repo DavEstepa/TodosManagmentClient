@@ -42,7 +42,6 @@ import { CardModule } from 'primeng/card';
   
   `,
   styleUrl: './list-todo-items.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListTodoItemsComponent {
   constantsProviderService = inject(ConstantProviderService);

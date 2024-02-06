@@ -7,7 +7,7 @@ import { GlobalErrorHandlerService } from './shared/services/global-error-handle
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    {provide: ErrorHandler, useClass: GlobalErrorHandlerService,},
+    {provide: ErrorHandler, useClass: GlobalErrorHandlerService},
     provideRouter(routes),
     provideAnimationsAsync()]
 };

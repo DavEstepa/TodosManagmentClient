@@ -1,23 +1,23 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ConstantProviderService } from './shared/services/constant-provider.service';
 import { ToastModule } from 'primeng/toast';
 import { Message, MessageService } from 'primeng/api';
 import { ToastProviderService } from './shared/services/toast-provider.service';
 import { Subscription } from 'rxjs';
+import { HttpClientModule } from '@angular/common/http';
 @Component({
   selector: 'app-root',
   standalone: true,
   providers: [MessageService],
-  imports: [RouterOutlet, CommonModule,ToastModule],
+  imports: [RouterOutlet, CommonModule,ToastModule, HttpClientModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnDestroy {
   constantsProviderService = inject(ConstantProviderService);
   toastService = inject(ToastProviderService);
-  messageService = inject(MessageService);
 
   title = 'todo-improved-app';
   routes = ['Crear', 'Listar'];
@@ -27,8 +27,16 @@ export class AppComponent implements OnDestroy {
 
   private suscriptions: Subscription[] = [];
 
-  constructor(){
-    this.suscriptions.push(this.toastService.message$.subscribe((message)=>this.messageService.add(message as Message)));
+  constructor(private messageService: MessageService){}
+
+  ngOnInit(){
+  }
+
+  ngAfterViewInit(){
+    let s = this.toastService.message$.subscribe((message)=>{
+      this.messageService.add(message as Message);
+    });
+    this.suscriptions.push(s);
   }
 
   ngOnDestroy(): void {

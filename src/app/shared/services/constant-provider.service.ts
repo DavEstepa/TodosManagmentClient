@@ -15,4 +15,8 @@ export class ConstantProviderService {
   getTODOColNames(){
     return CONSTANTS.TODOS_COL_NAMES;
   }
+
+  getURLAPI(){
+    return CONSTANTS.API_URL;
+  }
 }

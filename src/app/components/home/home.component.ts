@@ -20,7 +20,6 @@ import { ConstantProviderService } from '../../shared/services/constant-provider
 
   `,
   styleUrl: './home.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent {
   constantsProviderService = inject(ConstantProviderService);
