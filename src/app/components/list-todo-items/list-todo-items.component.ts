@@ -15,11 +15,12 @@ import { CardModule } from 'primeng/card';
   ],
   template: `
 
-<p-card class="mt-10">
-  <p-table [columns]="cols" [value]="todos" [tableStyle]="{ 'min-width': '50rem' }">
+
+  <p-table [columns]="cols" [value]="todos" [tableStyle]="{ 'min-width': '50rem' }"
+  class="mt-10 shadow">
       <ng-template pTemplate="header" let-columns>
           <tr >
-              <th *ngFor="let col of columns" style="background-color: #333;color:white">
+              <th *ngFor="let col of columns" class="header-cell">
                   {{ col }}
               </th>
           </tr>
@@ -38,7 +39,7 @@ import { CardModule } from 'primeng/card';
           </tr>
       </ng-template>
   </p-table>
-</p-card>
+
   
   `,
   styleUrl: './list-todo-items.component.css',

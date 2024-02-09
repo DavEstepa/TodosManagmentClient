@@ -76,7 +76,6 @@ export class CreateTodoItemComponent {
         this.service.createTodo(this.form.value).pipe(first()).subscribe(
           (r)=>{
             if(r)this.toastService.sendMessage({ severity: 'success', summary: 'Actividad Creada', detail: 'Información...' });
-            else this.toastService.sendMessage({ severity: 'error', summary: 'Error', detail: 'Message Content' })
           }
         );
     };

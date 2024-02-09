@@ -3,12 +3,18 @@
     <div class="container">
       <div class="row">
         <div class="col title-site">
-          <h3 class="">{{titleGeneralPage | titlecase}}</h3>
+          <h1 class="">{{titleGeneralPage | uppercase}}</h1>
         </div>
         <div class="col">
           <div class="d-flex flex-row-reverse">
             @for (route of routes; track $index) {
-              <div class="p-2 route-option">{{route}}</div>
+              <div class="p-2 route-option"
+              (click)="activatedRoute = route.route"
+              [ngClass]="{'route-active': activatedRoute == route.route}"
+              [routerLink]="route.route">
+                <ng-icon [name]="route.iconName" size="20px"></ng-icon>
+                {{route.route}}
+              </div>
             }
           </div>
         </div>

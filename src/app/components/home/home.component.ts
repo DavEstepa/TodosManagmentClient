@@ -2,20 +2,22 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import { ConstantProviderService } from '../../shared/services/constant-provider.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
     CommonModule,
-    MatButtonModule
+    MatButtonModule,
+    RouterModule
   ],
   template: `
 
   <h1 class="cover-heading">Bienvenido {{userLogged}}</h1>
   <p class="lead">{{titleGeneralPage}} {{message}}.</p>
   <p class="lead">
-  <button mat-raised-button color="primary">Crear tarea</button>
+  <button mat-raised-button color="primary" [routerLink]="'/crear'">Crear tarea</button>
   </p>
 
   `,
